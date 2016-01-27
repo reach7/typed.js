@@ -77,6 +77,8 @@
         // you want to remove at the time
         this.stopNum = 0;
 
+        this.getStopNum = this.options.getStopNum;
+
         // Looping logic
         this.loop = this.options.loop;
         this.loopCount = this.options.loopCount;
@@ -277,6 +279,9 @@
                 // else{
                 //  self.stopNum = 0;
                 // }
+                if (typeof self.getStopNum !== 'undefined' && $.isFunction(self.getStopNum)) {
+                    self.stopNum = self.getStopNum(self.arrayPos);
+                }
 
                 if (self.contentType === 'html') {
                     // skip over html tags while backspacing
@@ -420,6 +425,8 @@
         attr: null,
         // either html or text
         contentType: 'html',
+        // Return stopNum based on string array position
+        getStopNum: function(arrayPos) { return 0; },
         // call when done callback function
         callback: function() {},
         // starting callback function before each string
